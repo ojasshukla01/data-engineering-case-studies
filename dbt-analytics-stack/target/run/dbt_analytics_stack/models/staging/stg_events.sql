@@ -1,8 +1,8 @@
 
   
-  create view "dbt"."main"."stg_events__dbt_tmp" as (
+  create view "events"."main"."stg_events__dbt_tmp" as (
     with source as (
-    select * from "dbt"."main"."events"
+    select * from "events"."main"."events"
 )
 
 select

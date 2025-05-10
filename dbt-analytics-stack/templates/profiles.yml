@@ -3,5 +3,5 @@ default:
   outputs:
     dev:
       type: duckdb
-      path: dbt.duckdb  # local file that stores all tables
+      path: ../events.duckdb  # or "dbt.duckdb" if that's your file
       threads: 1

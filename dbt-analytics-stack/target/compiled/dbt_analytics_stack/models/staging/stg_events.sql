@@ -1,5 +1,5 @@
 with source as (
-    select * from "dbt"."main"."events"
+    select * from "events"."main"."events"
 )
 
 select

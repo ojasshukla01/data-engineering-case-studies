@@ -4,11 +4,11 @@
     
 
     create  table
-      "dbt"."main"."fct_actions__dbt_tmp"
+      "events"."main"."fct_actions__dbt_tmp"
   
     as (
       with events as (
-    select * from "dbt"."main"."stg_events"
+    select * from "events"."main"."stg_events"
 )
 
 select

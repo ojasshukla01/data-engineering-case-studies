@@ -1,12 +1,10 @@
 
     
     
-    
-    create table "dbt"."main"."events" ("id" text,"action" text,"event_time" timestamp without time zone)
-  ;
+    truncate table "events"."main"."events";
     -- dbt seed --
     
-          COPY "dbt"."main"."events" FROM 'C:\Users\ojass\OneDrive\Desktop\Data Engineering\data-engineering-case-studies\dbt-analytics-stack\data\events.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+          COPY "events"."main"."events" FROM 'C:\Users\ojass\OneDrive\Desktop\Data Engineering\data-engineering-case-studies\dbt-analytics-stack\data\events.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
         
 
 ;
