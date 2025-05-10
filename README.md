@@ -1,12 +1,12 @@
 # 🛠️ Data Engineering Case Studies
 
-Welcome to my portfolio repository! This project showcases real-world data engineering workflows, simulating how modern teams integrate, transform, and analyze data using a cloud-native architecture.
+Welcome to my portfolio repository! This project simulates real-world data engineering workflows using open-source and cloud-native tools — from streaming ingestion to analytics-ready models.
 
-These case studies demonstrate hands-on implementations with:
-- **Kafka** for event streaming
-- **AWS Lambda**-style Python functions for transformation
-- **Snowflake** as the cloud data warehouse
-- **DBT** for analytics modeling and documentation
+It features:
+- **Kafka** for real-time data ingestion
+- **AWS Lambda-style Python functions** for transformations
+- **Snowflake** (or DuckDB locally) for cloud data warehousing
+- **DBT** for analytics modeling, testing, and documentation
 
 ---
 
@@ -14,28 +14,33 @@ These case studies demonstrate hands-on implementations with:
 
 ### 📡 1. Kafka → AWS Lambda (Python) → Snowflake Pipeline
 
-This project demonstrates an end-to-end ingestion and transformation pipeline using streaming data:
-
-- **Producer** simulates real-time events using [Faker](https://faker.readthedocs.io/)
-- **Kafka** (via Docker) handles the streaming layer
-- **Lambda-style Python function** applies transformations
-- **Snowflake loader** inserts records into the warehouse
-- **Docker Compose** provided for local simulation
+This pipeline showcases end-to-end streaming ingestion:
+- **Producer** simulates events using [Faker](https://faker.readthedocs.io/)
+- **Kafka** (via Docker Compose) handles the streaming layer
+- **Lambda-style Python function** transforms events
+- **Snowflake/DBT/DuckDB** stores and queries transformed data
+- CLI runner script orchestrates the full pipeline
 
 📂 Folder: [`kafka-lambda-snowflake-pipeline/`](./kafka-lambda-snowflake-pipeline)
 
 ---
 
-### 📊 2. DBT + Snowflake Analytics Stack
+### 📊 2. DBT + DuckDB Analytics Stack
 
-This project shows how raw data in Snowflake is transformed into analytics-ready models using [DBT](https://www.getdbt.com/):
-
-- **Staging models** clean and standardize raw data
-- **Mart models** provide aggregated business logic
-- **Seed data** used to bootstrap the transformation
-- Includes **profiles.yml** and `dbt_project.yml` for reproducibility
+This DBT project models raw event data into analytics-friendly marts:
+- `stg_events`: staging model
+- `fct_actions`: fact model
+- Powered by **DBT** with **DuckDB**, no cloud account required
 
 📂 Folder: [`dbt-analytics-stack/`](./dbt-analytics-stack)
+
+---
+
+### 🖼️ Visual Preview – DBT Docs
+
+Below is a screenshot of the lineage and documentation generated using `dbt docs`:
+
+![DBT Docs Screenshot](assets/dbt_docs_screenshot.png)
 
 ---
 
@@ -43,22 +48,22 @@ This project shows how raw data in Snowflake is transformed into analytics-ready
 
 | Layer         | Tools Used                                      |
 |---------------|--------------------------------------------------|
-| Ingestion     | Kafka (self-hosted via Docker)                  |
-| Processing    | Python, AWS Lambda (simulated)                  |
-| Storage       | Snowflake (via Python connector + DBT)          |
+| Ingestion     | Kafka (Docker)                                  |
+| Transformation| Python (Lambda-style)                           |
+| Orchestration | CLI-based pipeline runner                       |
+| Storage       | Snowflake (simulated via DuckDB)                |
 | Modeling      | DBT, Jinja2, YAML                               |
-| Orchestration | CLI runner for Kafka → Lambda → Snowflake flow |
-| Simulation    | Faker, Docker, dotenv                           |
+| Testing       | dbt seed/run/test/docs                          |
 
 ---
 
 ## 🧪 How to Run Locally
 
-> Requires: Docker, Python 3.9+, pip, Git
+> Requires: Docker, Python 3.9+, pip, dbt-duckdb
 
-### 📡 Kafka + Producer
+### Kafka + Event Producer
+
 ```bash
 cd kafka-lambda-snowflake-pipeline
-docker-compose up  # starts Kafka & Zookeeper
-
-python producer/produce_events.py  # sends fake clickstream data
+docker-compose up        # Start Kafka and Zookeeper
+python producer/produce_events.py
