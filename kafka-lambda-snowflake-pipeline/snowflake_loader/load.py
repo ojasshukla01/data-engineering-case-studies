@@ -1,23 +1,23 @@
-import snowflake.connector
-import os
-from dotenv import load_dotenv
+import duckdb
 
-load_dotenv()
+# Connect to or create a local DuckDB file
+conn = duckdb.connect(database='events.duckdb')
 
-conn = snowflake.connector.connect(
-    user=os.getenv('SNOWFLAKE_USER'),
-    password=os.getenv('SNOWFLAKE_PASSWORD'),
-    account=os.getenv('SNOWFLAKE_ACCOUNT'),
-    warehouse=os.getenv('SNOWFLAKE_WAREHOUSE'),
-    database=os.getenv('SNOWFLAKE_DATABASE'),
-    schema=os.getenv('SNOWFLAKE_SCHEMA')
+# Ensure table exists
+conn.execute("""
+CREATE TABLE IF NOT EXISTS events (
+    id VARCHAR,
+    action VARCHAR,
+    event_time TIMESTAMP
 )
+""")
 
-cursor = conn.cursor()
-
-def load_to_snowflake(record):
-    cursor.execute(
-        "INSERT INTO events (id, action, event_time) VALUES (%s, %s, %s)",
-        (record['id'], record['action'], record['event_time'])
-    )
-    print("Record inserted into Snowflake.")
+def load_to_snowdb(record):
+    try:
+        conn.execute(
+            "INSERT INTO events (id, action, event_time) VALUES (?, ?, ?)",
+            (record['id'], record['action'], record['event_time'])
+        )
+        print("✅ Inserted into DuckDB:", record)
+    except Exception as e:
+        print("❌ Failed to insert into DuckDB:", e)

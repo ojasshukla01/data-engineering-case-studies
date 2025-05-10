@@ -1,7 +1,7 @@
 import json
 from kafka import KafkaConsumer
 from lambda_function.transform import lambda_handler
-from snowflake_loader.load import load_to_snowflake
+from snowflake_loader.load import load_to_snowdb
 
 consumer = KafkaConsumer(
     'events',
@@ -21,6 +21,6 @@ for message in consumer:
         transformed_event = lambda_handler(raw_event)
         print("Transformed:", transformed_event)
 
-        load_to_snowflake(transformed_event)
+        load_to_snowdb(transformed_event) 
     except Exception as e:
         print("Error processing message:", e)
