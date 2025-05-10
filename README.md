@@ -67,3 +67,50 @@ Below is a screenshot of the lineage and documentation generated using `dbt docs
 cd kafka-lambda-snowflake-pipeline
 docker-compose up        # Start Kafka and Zookeeper
 python producer/produce_events.py
+```
+
+### Lambda Function + DB Loader
+
+```bash
+python run_pipeline.py   # Listens to Kafka → Transforms → Loads into DuckDB
+```
+
+### DBT Transformation (staging + marts)
+
+```bash
+cd dbt-analytics-stack
+dbt seed --profiles-dir templates/
+dbt run --profiles-dir templates/
+```
+
+### DBT Docs UI
+
+```bash
+dbt docs generate --profiles-dir templates/
+dbt docs serve --profiles-dir templates/
+```
+
+---
+
+## 📘 Full Walkthrough
+
+📖 See [`RUN_GUIDE.md`](./RUN_GUIDE.md) for the complete step-by-step instructions to run this project from end to end.
+
+---
+
+## 👤 About Me
+
+Hi, I'm **Ojas Shukla** — a Data Engineer passionate about building efficient, scalable data pipelines that solve real-world problems.
+
+With 4+ years of experience in cloud-native data platforms, analytics engineering, and ETL systems, I specialize in:
+- Real-time + batch processing
+- GCP & AWS-based data stacks
+- dbt, DuckDB, Python, SQL, Kafka
+
+📫 [Connect with me on LinkedIn](https://www.linkedin.com/in/ojasshukla01)
+
+🧰 [Explore other projects →](https://github.com/ojasshukla01)
+
+---
+
+Built with ❤️ to showcase the real-world data flow from stream ingestion to insight.
