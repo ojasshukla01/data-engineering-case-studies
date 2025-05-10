@@ -1,30 +1,64 @@
-# Data Engineering Case Studies
+# 🛠️ Data Engineering Case Studies
 
-Welcome to my data engineering portfolio. This repository contains hands-on case studies that showcase my ability to build and manage modern data pipelines using cloud-native tools and open-source technologies.
+Welcome to my portfolio repository! This project showcases real-world data engineering workflows, simulating how modern teams integrate, transform, and analyze data using a cloud-native architecture.
 
-Each project is designed to reflect real-world data challenges and demonstrates how I apply best practices in data engineering — from streaming ingestion to analytics-ready data models.
-
----
-
-## Contents
-
-### 1. Kafka → AWS Lambda → Snowflake Pipeline
-Simulates a real-time data ingestion and transformation workflow:
-- Kafka (self-hosted) produces clickstream data
-- AWS Lambda-style function (Python) transforms events
-- Snowflake handles final storage using secure ingestion
-- Includes Docker, test data, and step-by-step instructions
-
-### 2. DBT + Snowflake Analytics Stack
-A complete dbt project demonstrating:
-- Raw-to-staging-to-marts modeling
-- Tests, documentation, and Jinja-based logic
-- Example use case: Ecommerce customer orders and payments
+These case studies demonstrate hands-on implementations with:
+- **Kafka** for event streaming
+- **AWS Lambda**-style Python functions for transformation
+- **Snowflake** as the cloud data warehouse
+- **DBT** for analytics modeling and documentation
 
 ---
 
-## About Me
+## 🚀 Projects Overview
 
-I’m a Data Engineer with experience building resilient data pipelines, designing analytics stacks, and enabling intelligent decision-making at scale using Python, SQL, and cloud-native tools like GCP and AWS.
+### 📡 1. Kafka → AWS Lambda (Python) → Snowflake Pipeline
 
-Let’s connect: [LinkedIn](https://www.linkedin.com/in/ojas-shukla)
+This project demonstrates an end-to-end ingestion and transformation pipeline using streaming data:
+
+- **Producer** simulates real-time events using [Faker](https://faker.readthedocs.io/)
+- **Kafka** (via Docker) handles the streaming layer
+- **Lambda-style Python function** applies transformations
+- **Snowflake loader** inserts records into the warehouse
+- **Docker Compose** provided for local simulation
+
+📂 Folder: [`kafka-lambda-snowflake-pipeline/`](./kafka-lambda-snowflake-pipeline)
+
+---
+
+### 📊 2. DBT + Snowflake Analytics Stack
+
+This project shows how raw data in Snowflake is transformed into analytics-ready models using [DBT](https://www.getdbt.com/):
+
+- **Staging models** clean and standardize raw data
+- **Mart models** provide aggregated business logic
+- **Seed data** used to bootstrap the transformation
+- Includes **profiles.yml** and `dbt_project.yml` for reproducibility
+
+📂 Folder: [`dbt-analytics-stack/`](./dbt-analytics-stack)
+
+---
+
+## 🧱 Tech Stack
+
+| Layer         | Tools Used                                      |
+|---------------|--------------------------------------------------|
+| Ingestion     | Kafka (self-hosted via Docker)                  |
+| Processing    | Python, AWS Lambda (simulated)                  |
+| Storage       | Snowflake (via Python connector + DBT)          |
+| Modeling      | DBT, Jinja2, YAML                               |
+| Orchestration | CLI runner for Kafka → Lambda → Snowflake flow |
+| Simulation    | Faker, Docker, dotenv                           |
+
+---
+
+## 🧪 How to Run Locally
+
+> Requires: Docker, Python 3.9+, pip, Git
+
+### 📡 Kafka + Producer
+```bash
+cd kafka-lambda-snowflake-pipeline
+docker-compose up  # starts Kafka & Zookeeper
+
+python producer/produce_events.py  # sends fake clickstream data
