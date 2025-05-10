@@ -40,7 +40,7 @@ This DBT project models raw event data into analytics-friendly marts:
 
 Below is a screenshot of the lineage and documentation generated using `dbt docs`:
 
-![DBT Docs Screenshot](![image](https://github.com/user-attachments/assets/54aa7cec-6c3c-43a2-ae41-62488f808291))
+![DBT Docs Screenshot](assets/dbt_docs_screenshot.png)
 
 ---
 
